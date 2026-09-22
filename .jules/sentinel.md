@@ -11,3 +11,7 @@
 **Vulnerability:** GitHub Action workflow lacked explicit `permissions` block and used deprecated `actions/checkout@v3` (Node 16).
 **Learning:** Relying on default `GITHUB_TOKEN` permissions can grant overly broad access (e.g. write access). Using deprecated Node versions in Actions introduces known vulnerabilities.
 **Prevention:** Always define explicit top-level `permissions` blocks (e.g., `contents: read`) in GitHub Action workflows to adhere to least-privilege principles, and regularly audit/upgrade Action dependencies to mitigate risks from outdated runtime environments.
+## 2024-05-30 - [GitHub Actions Supply Chain Protection]
+**Vulnerability:** GitHub Action workflows using mutable tags (e.g., `@v4`, `@v2`) instead of immutable commit SHAs.
+**Learning:** Tags in Git are mutable and can be moved. An attacker who compromises a GitHub Action's repository could move a widely used tag (like `v2`) to point to a malicious commit. If workflows reference this tag, they will automatically pull and run the malicious code, leading to a supply-chain attack.
+**Prevention:** Always pin GitHub Actions to their specific, immutable commit SHAs (e.g., `@11d5960a326750d5838078e36cf38b85af677262`) and add comments referencing the original tag for maintainability. Use tools like Dependabot to keep these SHAs updated securely.
