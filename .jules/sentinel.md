@@ -15,3 +15,7 @@
 **Vulnerability:** GitHub Action `gitleaks-action@v2` targeting deprecated Node.js 20 environment.
 **Learning:** Using outdated major versions of GitHub Actions can lead to CI failures when the underlying runtime (like Node.js) is deprecated by GitHub, potentially disrupting security scanning workflows.
 **Prevention:** Regularly update GitHub Actions to their latest major versions (e.g., `gitleaks-action@v3`) to ensure compatibility with supported runner environments and avoid deprecation warnings or failures.
+## 2025-02-12 - [GitHub Actions Mutable Tags]
+**Vulnerability:** GitHub Action workflows using mutable version tags (e.g., `@v4`, `@v3`).
+**Learning:** Referencing GitHub Actions by tags (e.g., `@v4`) is susceptible to supply chain attacks. If a malicious actor compromises the action's repository, they can move the tag to a malicious commit, which will automatically be executed in our CI pipeline.
+**Prevention:** Always pin GitHub Actions to their full-length commit SHAs and include a comment with the corresponding version tag (e.g., `actions/checkout@11d5960... # v4`) to ensure immutability and protect against unauthorized modifications.
