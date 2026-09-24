@@ -11,3 +11,7 @@
 **Vulnerability:** GitHub Action workflow lacked explicit `permissions` block and used deprecated `actions/checkout@v3` (Node 16).
 **Learning:** Relying on default `GITHUB_TOKEN` permissions can grant overly broad access (e.g. write access). Using deprecated Node versions in Actions introduces known vulnerabilities.
 **Prevention:** Always define explicit top-level `permissions` blocks (e.g., `contents: read`) in GitHub Action workflows to adhere to least-privilege principles, and regularly audit/upgrade Action dependencies to mitigate risks from outdated runtime environments.
+## 2025-02-12 - [GitHub Actions Node Deprecation]
+**Vulnerability:** GitHub Action `gitleaks-action@v2` targeting deprecated Node.js 20 environment.
+**Learning:** Using outdated major versions of GitHub Actions can lead to CI failures when the underlying runtime (like Node.js) is deprecated by GitHub, potentially disrupting security scanning workflows.
+**Prevention:** Regularly update GitHub Actions to their latest major versions (e.g., `gitleaks-action@v3`) to ensure compatibility with supported runner environments and avoid deprecation warnings or failures.
