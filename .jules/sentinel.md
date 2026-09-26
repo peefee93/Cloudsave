@@ -19,3 +19,7 @@
 **Vulnerability:** GitHub Action workflows using mutable version tags (e.g., `@v4`, `@v3`).
 **Learning:** Referencing GitHub Actions by tags (e.g., `@v4`) is susceptible to supply chain attacks. If a malicious actor compromises the action's repository, they can move the tag to a malicious commit, which will automatically be executed in our CI pipeline.
 **Prevention:** Always pin GitHub Actions to their full-length commit SHAs and include a comment with the corresponding version tag (e.g., `actions/checkout@11d5960... # v4`) to ensure immutability and protect against unauthorized modifications.
+## 2025-02-12 - [GitHub Actions Credential Persistence]
+**Vulnerability:** `actions/checkout` persists the `GITHUB_TOKEN` in the local git config by default.
+**Learning:** Leaving `persist-credentials: true` (the default) allows subsequent steps in the workflow to read the token from the `.git/config` file, which could be exploited by malicious actions or scripts to perform unauthorized git operations.
+**Prevention:** Always set `persist-credentials: false` when using `actions/checkout` unless pushing changes to the repository is explicitly required by the workflow.
