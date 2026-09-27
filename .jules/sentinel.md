@@ -23,3 +23,7 @@
 **Vulnerability:** `actions/checkout` persists the `GITHUB_TOKEN` in the local git config by default.
 **Learning:** Leaving `persist-credentials: true` (the default) allows subsequent steps in the workflow to read the token from the `.git/config` file, which could be exploited by malicious actions or scripts to perform unauthorized git operations.
 **Prevention:** Always set `persist-credentials: false` when using `actions/checkout` unless pushing changes to the repository is explicitly required by the workflow.
+## 2025-02-12 - [GitHub Actions Missing Timeouts]
+**Vulnerability:** GitHub Action workflows missing explicit timeout configurations.
+**Learning:** Workflows without explicit timeouts can run for extended periods if a step hangs or is intentionally stalled by a malicious actor (e.g., via a computationally expensive PR). This can lead to Denial of Service (DoS) for the CI/CD pipeline and unexpected resource exhaustion.
+**Prevention:** Always define explicit `timeout-minutes` at the job level for all GitHub Actions workflows to establish an upper bound on execution time and prevent infinite hangs.
