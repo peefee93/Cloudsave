@@ -10,6 +10,14 @@
 id_rsa
 id_rsa.pub
 
+# Cloud & Infrastructure Credentials
+.aws/
+.gcp/
+.azure/
+.docker/config.json
+kubeconfig
+*.kube/config
+
 # Log files
 *.log
 npm-debug.log*
