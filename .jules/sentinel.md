@@ -27,3 +27,7 @@
 **Vulnerability:** GitHub Action workflows missing explicit `timeout-minutes` configuration.
 **Learning:** Without explicit timeouts, a stuck or malicious process in a CI job can run for the default maximum time (up to 360 minutes for GitHub-hosted runners), leading to severe CI resource exhaustion, increased costs, and potential Denial of Service (DoS) for other development activities.
 **Prevention:** Always define an explicit `timeout-minutes` (e.g., 10-15 minutes) at the job or step level in GitHub Actions workflows to forcefully terminate hanging jobs and protect CI infrastructure.
+## 2025-02-12 - [NPM Supply Chain Mitigation]
+**Vulnerability:** Execution of arbitrary code during package installation (`pnpm install`).
+**Learning:** By default, package managers like npm and pnpm run lifecycle scripts (e.g., `postinstall`) defined in dependencies. Malicious packages can use these scripts to execute arbitrary code on the developer's machine or in CI environments, leading to potential supply chain attacks.
+**Prevention:** Disable script execution globally for the project by adding `ignore-scripts=true` to the `.npmrc` file. This prevents unexpected code from running during dependency resolution, while explicit scripts can still be run manually when verified.
