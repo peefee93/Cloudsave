@@ -31,3 +31,7 @@
 **Vulnerability:** Execution of arbitrary code during package installation (`pnpm install`).
 **Learning:** By default, package managers like npm and pnpm run lifecycle scripts (e.g., `postinstall`) defined in dependencies. Malicious packages can use these scripts to execute arbitrary code on the developer's machine or in CI environments, leading to potential supply chain attacks.
 **Prevention:** Disable script execution globally for the project by adding `ignore-scripts=true` to the `.npmrc` file. This prevents unexpected code from running during dependency resolution, while explicit scripts can still be run manually when verified.
+## 2025-02-12 - [Unverified CI Tool Execution]
+**Vulnerability:** Executing unpinned and unhashed remote scripts directly from a URL (e.g., `bash <(curl -s https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)`) introduces a severe supply-chain vulnerability.
+**Learning:** Even if a tool is useful for security (like `actionlint`), downloading and running it dynamically from a mutable source (like the `main` branch of a repo) without verification means an attacker who compromises that source can execute arbitrary code in our CI pipeline.
+**Prevention:** Always verify external tools downloaded in CI by either pinning them to a specific release version and verifying their SHA256 checksums before execution, or using a verified, pinned GitHub Action wrapper.
